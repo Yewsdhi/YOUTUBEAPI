@@ -6,7 +6,7 @@ FastAPI + yt-dlp API for Telegram music bots.
 
 After this repository is pushed to GitHub, add this badge to the README:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=YOUR_REPO_URL)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Yewsdhi/YOUTUBEAPI)
 
 Replace `YOUR_REPO_URL` with the GitHub repository URL.
 
