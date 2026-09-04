@@ -1,0 +1,7 @@
+{
+  "name": "royal-music-api",
+  "description": "FastAPI YouTube music API for Telegram music bots",
+  "repository": "https://github.com/YOUR_GITHUB_USERNAME/royal-music-api",
+  "keywords": ["fastapi", "youtube", "music", "telegram", "yt-dlp"],
+  "stack": "heroku-24"
+}
