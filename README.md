@@ -37,6 +37,8 @@ X-API-Key: ROYAL_xxxxxxxxxxxxxxxx
 
 ## Heroku
 
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy?template=https://github.com/YOUR_USERNAME/YOUR_REPO)
+
 The repository contains Procfile, runtime.txt and Aptfile.
 Use a single web dyno/process because the Telegram bot uses polling.
 
