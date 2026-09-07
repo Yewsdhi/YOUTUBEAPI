@@ -1,1 +1,0 @@
-# Optional Netscape-format cookies file. Keep private; do not commit personal cookies.
