@@ -8,14 +8,10 @@ def start_bot():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 
-    from bot import app
-    loop.run_until_complete(app.start())
+    from bot import bot
 
-    try:
-        loop.run_forever()
-    finally:
-        loop.run_until_complete(app.stop())
-        loop.close()
+    loop.run_until_complete(bot.start())
+    loop.run_forever()
 
 
 if __name__ == "__main__":
