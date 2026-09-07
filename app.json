@@ -1,12 +1,55 @@
 {
   "name": "ROYAL YouTube API",
-  "description": "FastAPI YouTube API with Telegram API-key bot",
-  "keywords": ["fastapi","youtube","telegram"],
+  "description": "ROYAL YouTube Downloader API with Telegram API Key Bot",
+  "repository": "https://github.com/YOUR_USERNAME/YOUR_REPO",
+  "keywords": [
+    "youtube",
+    "downloader",
+    "telegram",
+    "api",
+    "fastapi"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-apt"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "addons": [
+    {
+      "plan": "heroku-postgresql:essential-0",
+      "as": "DATABASE"
+    }
+  ],
   "env": {
-    "API_ID": {"description":"Telegram API ID","required":true},
-    "API_HASH": {"description":"Telegram API Hash","required":true},
-    "BOT_TOKEN": {"description":"Telegram Bot Token","required":true},
-    "DAILY_LIMIT": {"description":"Daily API request limit","value":"3000","required":true},
-    "KEY_DAYS": {"description":"API key validity in days","value":"30","required":true}
+    "API_ID": {
+      "description": "Telegram API ID",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Telegram API Hash",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "Telegram Bot Token",
+      "required": true
+    },
+    "DAILY_LIMIT": {
+      "description": "Daily API request limit",
+      "value": "3000",
+      "required": true
+    },
+    "KEY_DAYS": {
+      "description": "API key validity in days",
+      "value": "30",
+      "required": true
+    },
+    "MAX_FILE_MB": {
+      "description": "Maximum download file size in MB",
+      "value": "100",
+      "required": true
+    }
   }
 }
