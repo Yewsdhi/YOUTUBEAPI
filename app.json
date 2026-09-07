@@ -1,0 +1,45 @@
+{
+  "name": "Royal API Key Bot",
+  "description": "FastAPI + yt-dlp + FFmpeg + Telegram API key bot",
+  "keywords": ["fastapi", "telegram-bot", "yt-dlp", "api"],
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Telegram BotFather token",
+      "required": true
+    },
+    "ADMIN_ID": {
+      "description": "Telegram numeric admin ID (optional)",
+      "required": false,
+      "value": "0"
+    },
+    "DATABASE_URL": {
+      "description": "PostgreSQL connection URL",
+      "required": true
+    },
+    "DAILY_LIMIT": {
+      "description": "Daily requests per API key",
+      "required": false,
+      "value": "3000"
+    },
+    "KEY_DAYS": {
+      "description": "API key validity in days",
+      "required": false,
+      "value": "30"
+    },
+    "MAX_FILE_MB": {
+      "description": "Maximum download size",
+      "required": false,
+      "value": "100"
+    },
+    "MAX_CONCURRENT": {
+      "description": "Maximum concurrent downloads",
+      "required": false,
+      "value": "2"
+    },
+    "COOKIES_FILE": {
+      "description": "Optional server-side cookies.txt path",
+      "required": false,
+      "value": "/app/cookies.txt"
+    }
+  }
+}
