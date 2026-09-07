@@ -2,7 +2,10 @@ import os
 from datetime import datetime
 
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import (
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+)
 
 from main import create_key, DAILY_LIMIT
 
@@ -32,13 +35,13 @@ def menu():
             [
                 InlineKeyboardButton(
                     "🔑 View Your Key",
-                    callback_data="key"
+                    callback_data="key",
                 )
             ],
             [
                 InlineKeyboardButton(
                     "📚 API Docs",
-                    callback_data="docs"
+                    callback_data="docs",
                 )
             ],
         ]
@@ -47,7 +50,12 @@ def menu():
 
 @bot.on_message(filters.command("start") & filters.private)
 async def start(_, m):
-    name = m.from_user.mention if m.from_user else "User"
+
+    name = (
+        m.from_user.mention
+        if m.from_user
+        else "User"
+    )
 
     await m.reply_text(
         f"👋 **Welcome {name}!**\n\n"
@@ -61,44 +69,71 @@ async def callback(_, q):
 
     if q.data == "key":
 
-        key, created, expires = await create_key(q.from_user.id)
+        try:
+            key, created, expires = await create_key(
+                q.from_user.id
+            )
 
-        c = datetime.fromisoformat(created).strftime(
-            "%d %b %Y, %I:%M %p"
-        )
+            created_dt = datetime.fromisoformat(
+                created
+            )
 
-        e = datetime.fromisoformat(expires).strftime(
-            "%d %b %Y, %I:%M %p"
-        )
+            expires_dt = datetime.fromisoformat(
+                expires
+            )
 
-        text = (
-            "🔑 **Your API Key**\n\n"
-            f"**API Key:**\n`{key}`\n\n"
-            "**Status:** 🟢 Active\n"
-            f"**Daily Limit:** {DAILY_LIMIT:,}\n\n"
-            f"**Created:** {c}\n"
-            f"**Expires:** {e}"
-        )
+            created_text = created_dt.strftime(
+                "%d %b %Y, %I:%M %p"
+            )
 
-        await q.message.edit_text(
-            text,
-            reply_markup=InlineKeyboardMarkup(
-                [
+            expires_text = expires_dt.strftime(
+                "%d %b %Y, %I:%M %p"
+            )
+
+            text = (
+                "🔑 **Your API Key**\n\n"
+                f"**API Key:**\n`{key}`\n\n"
+                "**Status:** 🟢 Active\n"
+                f"**Daily Limit:** {DAILY_LIMIT:,}\n\n"
+                f"**Created:** {created_text}\n"
+                f"**Expires:** {expires_text}"
+            )
+
+            await q.message.edit_text(
+                text,
+                reply_markup=InlineKeyboardMarkup(
                     [
-                        InlineKeyboardButton(
-                            "🔄 Refresh",
-                            callback_data="key"
-                        )
-                    ],
+                        [
+                            InlineKeyboardButton(
+                                "🔄 Refresh",
+                                callback_data="key",
+                            )
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                "⬅️ Back",
+                                callback_data="menu",
+                            )
+                        ],
+                    ]
+                ),
+            )
+
+        except Exception as e:
+
+            await q.message.edit_text(
+                f"❌ **Error**\n\n`{e}`",
+                reply_markup=InlineKeyboardMarkup(
                     [
-                        InlineKeyboardButton(
-                            "⬅️ Back",
-                            callback_data="menu"
-                        )
-                    ],
-                ]
-            ),
-        )
+                        [
+                            InlineKeyboardButton(
+                                "⬅️ Back",
+                                callback_data="menu",
+                            )
+                        ]
+                    ]
+                ),
+            )
 
     elif q.data == "docs":
 
@@ -106,9 +141,13 @@ async def callback(_, q):
             "📚 **API Docs**\n\n"
             "**Endpoint:**\n"
             "`GET /download`\n\n"
+            "**Audio:**\n"
+            "`type=audio`\n\n"
+            "**Video:**\n"
+            "`type=video`\n\n"
             "**Parameters:**\n"
             "`url` — YouTube URL\n"
-            "`type=audio|video`\n"
+            "`type` — audio/video\n"
             "`api_key` — Your API key"
         )
 
@@ -119,7 +158,7 @@ async def callback(_, q):
                     [
                         InlineKeyboardButton(
                             "⬅️ Back",
-                            callback_data="menu"
+                            callback_data="menu",
                         )
                     ]
                 ]
