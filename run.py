@@ -1,10 +1,34 @@
-import os, threading
+import os
+import asyncio
+import threading
 import uvicorn
-from bot import bot
+
 
 def start_bot():
-    bot.run()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    from bot import app
+    loop.run_until_complete(app.start())
+
+    try:
+        loop.run_forever()
+    finally:
+        loop.run_until_complete(app.stop())
+        loop.close()
+
 
 if __name__ == "__main__":
-    threading.Thread(target=start_bot, daemon=True).start()
-    uvicorn.run("main:app", host="0.0.0.0", port=int(os.getenv("PORT","8080")), workers=1)
+    bot_thread = threading.Thread(
+        target=start_bot,
+        name="start_bot",
+        daemon=True
+    )
+    bot_thread.start()
+
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", "8080")),
+        workers=1
+    )
